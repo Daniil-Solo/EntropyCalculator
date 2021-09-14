@@ -4,18 +4,19 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
+from kivy.uix.label import Label
 
 
 class EntropyCalculatorApp(App):
     def build(self):
         main_layout = BoxLayout(orientation="vertical")
         self.input = TextInput(
-            multiline=False, halign="right", readonly="True", font_size=30
+            multiline=True, halign="right", readonly="True", font_size=40
         )
         main_layout.add_widget(self.input)
 
         self.output = TextInput(
-            multiline=False, halign="right", readonly="True", font_size=30
+            multiline=True, halign="right", readonly="True", font_size=40
         )
         main_layout.add_widget(self.output)
 
@@ -44,12 +45,14 @@ class EntropyCalculatorApp(App):
 
         if button_text == "Clear":
             self.input.text = ""
+            self.output.text = ""
         elif button_text == "Space":
             text = current_text.split(' ')[-1]
             if text != '':
                 self.input.text = current_text + " "
         elif button_text == "Calculate":
-            self.calculate(current_text)
+            if current_text != "" and current_text != " ":
+                self.calculate(current_text)
         elif button_text == "Backspace":
             self.input.text = current_text[:-1]
         elif button_text == '.':
